@@ -1,5 +1,9 @@
 package main
 
-func main() {
+import (
+	"ComicUpdateViewer/getPages"
+)
 
+func main() {
+	getPages.GetPages()
 }
