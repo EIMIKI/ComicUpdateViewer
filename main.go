@@ -22,6 +22,7 @@ func check(conn *sql.DB) {
 
 func main() {
 	conn, err := db.Conn()
+	defer conn.Close()
 	if err != nil {
 		panic(err)
 	}
