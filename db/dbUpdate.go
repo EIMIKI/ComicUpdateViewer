@@ -8,7 +8,7 @@ import (
 )
 
 func Update(conn *sql.DB, comic getPages.TodayUpdate, date string) error {
-	_, err := conn.Exec("update comics set date=" + date + " img='" + comic.ImgUrl + "' where title='" + comic.Title + "'")
+	_, err := conn.Exec("update comics set date=" + date + ",img='" + comic.ImgUrl + "' where title='" + comic.Title + "'")
 	if err != nil {
 		return err
 	}
@@ -16,7 +16,7 @@ func Update(conn *sql.DB, comic getPages.TodayUpdate, date string) error {
 }
 
 func Add(conn *sql.DB, comic getPages.TodayUpdate, date string) error {
-	_, err := conn.Exec("insert into comics (title,url,img,date) value ('" + comic.Title + "','" + comic.Url + "','" + comic.ImgUrl + "'," + date + ")")
+	_, err := conn.Exec("insert into comics (title,url,img,date) value ('" + comic.Title + "','" + comic.Url + "','" + comic.ImgUrl + "','" + date + "')")
 	if err != nil {
 		return err
 	}
@@ -31,10 +31,13 @@ func Push(conn *sql.DB, comics []getPages.TodayUpdate) error {
 
 	for _, comic := range comics {
 		err := conn.QueryRow("select exists (select * from comics where title='" + comic.Title + "')").Scan(&exists)
-		if err == sql.ErrNoRows {
-			Add(conn, comic, date)
-		} else if err != nil {
+
+		if err != nil {
 			return err
+		}
+
+		if exists == "0" {
+			Add(conn, comic, date)
 		} else {
 			Update(conn, comic, date)
 		}
