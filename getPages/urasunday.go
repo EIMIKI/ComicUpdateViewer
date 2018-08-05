@@ -1,6 +1,7 @@
 package getPages
 
 import (
+	"html"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
@@ -34,6 +35,7 @@ func GetUrasunday() ([]TodayUpdate, error) {
 		update.ImgUrl = parseUrl(update.ImgUrl)
 		s.Find("a").Each(func(_ int, s2 *goquery.Selection) {
 			update.Title = s2.Text()
+			update.Title = html.EscapeString(update.Title)
 			update.Url, _ = s2.Attr("href")
 			update.Url = toAbsPath(update.Url)
 			updates = append(updates, update)

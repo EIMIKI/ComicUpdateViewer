@@ -1,6 +1,10 @@
 package getPages
 
-import "github.com/PuerkitoBio/goquery"
+import (
+	"html"
+
+	"github.com/PuerkitoBio/goquery"
+)
 
 //サンデーうぇぶりの更新取得
 func GetSundaywebry() ([]TodayUpdate, error) {
@@ -18,6 +22,7 @@ func GetSundaywebry() ([]TodayUpdate, error) {
 			s2.Find("img").Each(func(_ int, s3 *goquery.Selection) {
 				update.ImgUrl, _ = s3.Attr("src")
 				update.Title, _ = s3.Attr("alt")
+				update.Title = html.EscapeString(update.Title)
 				updates = append(updates, update)
 			})
 
