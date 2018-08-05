@@ -1,9 +1,5 @@
 package getPages
 
-import (
-	"fmt"
-)
-
 type TodayUpdate struct {
 	Url    string
 	ImgUrl string
@@ -15,18 +11,16 @@ var (
 	SundaywebryUrl = "https://www.sunday-webry.com/"
 )
 
-func GetPages() error {
+func GetPages() ([][]TodayUpdate, error) {
 	UsUpdates, err := GetUrasunday()
 	if err != nil {
-		return err
+		return nil, err
 	}
 	SwUpdates, err := GetSundaywebry()
 	if err != nil {
-		return err
+		return nil, err
 	}
+	updates := [][]TodayUpdate{UsUpdates, SwUpdates}
 
-	fmt.Println(UsUpdates)
-	fmt.Println(SwUpdates)
-
-	return nil
+	return updates, nil
 }
