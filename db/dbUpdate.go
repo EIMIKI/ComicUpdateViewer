@@ -7,6 +7,14 @@ import (
 	"time"
 )
 
+// 実行時点での日付を返す
+func GetDate() string {
+	now := time.Now()
+	date := fmt.Sprintf("%d-%d-%d", now.Year(), now.Month(), now.Day())
+	return date
+
+}
+
 func Update(conn *sql.DB, comic getPages.TodayUpdate, date string) error {
 	_, err := conn.Exec("update comics set date=" + date + ",img='" + comic.ImgUrl + "' where title='" + comic.Title + "'")
 	if err != nil {
@@ -26,8 +34,7 @@ func Add(conn *sql.DB, comic getPages.TodayUpdate, date string) error {
 func Push(conn *sql.DB, comics []getPages.TodayUpdate) error {
 	var exists string
 
-	now := time.Now()
-	date := fmt.Sprintf("%d-%d-%d", now.Year(), now.Month(), now.Day())
+	date := GetDate()
 
 	for _, comic := range comics {
 		err := conn.QueryRow("select exists (select * from comics where title='" + comic.Title + "')").Scan(&exists)
