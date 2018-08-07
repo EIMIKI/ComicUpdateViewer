@@ -43,9 +43,9 @@ func Push(comics []getPages.TodayUpdate) error {
 		}
 
 		if exists == "0" {
-			Add(Conn, comic, date)
+			Add(comic, date)
 		} else {
-			Update(Conn, comic, date)
+			Update(comic, date)
 		}
 	}
 	return nil
