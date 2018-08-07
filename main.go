@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+//定期実行して新着comicを探す
 func check() {
 	for {
 		updates, err := getPages.GetPages()
@@ -36,5 +37,9 @@ func main() {
 	defer db.Conn.Close()
 
 	r.GET("/api/getToday", api.GetToday)
+	r.GET("api/getPast", api.GetPast)
+
 	go check()
+
+	r.Run()
 }
