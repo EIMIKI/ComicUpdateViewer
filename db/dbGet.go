@@ -14,7 +14,6 @@ type Result struct {
 // DBからsqlQueryに沿ったデータを持ってくる
 func GetPastUpdate(sqlQuery string) ([]Result, error) {
 	resultRows, err := Conn.Query(sqlQuery)
-	//resultRows, err := conn.Query("select comic_id,title,url,img from comics where date='" + date + "'")
 	if err != nil {
 		return nil, err
 	}

@@ -11,6 +11,7 @@ var (
 	SundaywebryUrl = "https://www.sunday-webry.com/"
 )
 
+// 各サイトの当日分の更新を取ってくる
 func GetPages() ([][]TodayUpdate, error) {
 	UsUpdates, err := GetUrasunday()
 	if err != nil {
