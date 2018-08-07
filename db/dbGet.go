@@ -5,10 +5,10 @@ import (
 )
 
 type Result struct {
-	ComicId string
-	Title   string
-	Url     string
-	Img     string
+	ComicId string `json:"id"`
+	Title   string `json:"title"`
+	Url     string `json:"url"`
+	Img     string `json:"img"`
 }
 
 // DBからsqlQueryに沿ったデータを持ってくる
