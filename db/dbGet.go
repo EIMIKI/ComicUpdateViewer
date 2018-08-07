@@ -13,7 +13,7 @@ type Result struct {
 }
 
 // DBから実行した時点での日付のついたデータを持ってくる
-func GetTodayUpdate(conn *sql.DB) error {
+func GetTodayUpdate(conn *sql.DB) ([]Result, error) {
 	date := GetDate()
 	resultRows, err := conn.Query("select comic_id,title,url,img from comics where date='" + date + "'")
 	if err != nil {
@@ -28,12 +28,12 @@ func GetTodayUpdate(conn *sql.DB) error {
 
 		err := resultRows.Scan(&(result.ComicId), &(result.Title), &result.Url, &result.Img)
 		if err != nil {
-			return err
+			return nil, err
 		}
 		results = append(results, result)
 	}
 
 	fmt.Println(results)
 
-	return nil
+	return results, err
 }
