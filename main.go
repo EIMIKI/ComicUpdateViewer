@@ -1,13 +1,15 @@
 package main
 
 import (
+	"ComicUpdateViewer/api"
 	"ComicUpdateViewer/db"
 	"ComicUpdateViewer/getPages"
-	"database/sql"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
-func check(conn *sql.DB) {
+func check() {
 	for {
 		updates, err := getPages.GetPages()
 		if err != nil {
@@ -15,7 +17,7 @@ func check(conn *sql.DB) {
 		}
 
 		for _, update := range updates {
-			err = db.Push(conn, update)
+			err = db.Push(update)
 		}
 		if err != nil {
 			panic(err)
@@ -25,10 +27,14 @@ func check(conn *sql.DB) {
 }
 
 func main() {
-	conn, err := db.Conn()
-	defer conn.Close()
+
+	r := gin.Default()
+	err := db.Connect()
 	if err != nil {
 		panic(err)
 	}
-	go check(conn)
+	defer db.Conn.Close()
+
+	r.GET("/api/getToday", api.GetToday)
+	go check()
 }

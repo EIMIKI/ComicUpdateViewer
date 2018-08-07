@@ -12,6 +12,8 @@ type DbUser struct {
 	Pass string
 }
 
+var Conn *sql.DB
+
 func getDbUserEnv() DbUser {
 	dbUser := DbUser{}
 	dbUser.Name = os.Getenv("DBUSER")
@@ -19,12 +21,13 @@ func getDbUserEnv() DbUser {
 	return dbUser
 
 }
-func Conn() (*sql.DB, error) {
+func Connect() (err error) {
 	dbUser := getDbUserEnv()
 	conn, err := sql.Open("mysql", dbUser.Name+":"+dbUser.Pass+"@/cuv")
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return conn, nil
+	Conn = conn
+	return nil
 }

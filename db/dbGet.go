@@ -1,7 +1,6 @@
 package db
 
 import (
-	"database/sql"
 	"fmt"
 )
 
@@ -13,8 +12,8 @@ type Result struct {
 }
 
 // DBからsqlQueryに沿ったデータを持ってくる
-func GetPastUpdate(conn *sql.DB, sqlQuery string) ([]Result, error) {
-	resultRows, err := conn.Query(sqlQuery)
+func GetPastUpdate(sqlQuery string) ([]Result, error) {
+	resultRows, err := Conn.Query(sqlQuery)
 	//resultRows, err := conn.Query("select comic_id,title,url,img from comics where date='" + date + "'")
 	if err != nil {
 		return nil, err
