@@ -12,12 +12,12 @@ type Result struct {
 	Img     string
 }
 
-// DBから実行した時点での日付のついたデータを持ってくる
-func GetTodayUpdate(conn *sql.DB) ([]Result, error) {
-	date := GetDate()
-	resultRows, err := conn.Query("select comic_id,title,url,img from comics where date='" + date + "'")
+// DBからsqlQueryに沿ったデータを持ってくる
+func GetPastUpdate(conn *sql.DB, sqlQuery string) ([]Result, error) {
+	resultRows, err := conn.Query(sqlQuery)
+	//resultRows, err := conn.Query("select comic_id,title,url,img from comics where date='" + date + "'")
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	defer resultRows.Close()
