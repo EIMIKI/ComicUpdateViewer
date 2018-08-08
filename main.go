@@ -36,8 +36,12 @@ func main() {
 	}
 	defer db.Conn.Close()
 
+	r.LoadHTMLGlob("templates/*.html")
+	r.Static("/assets", "./assets")
+
 	r.GET("/api/getToday", api.GetToday)
 	r.GET("api/getPast", api.GetPast)
+	r.GET("/")
 
 	go check()
 
