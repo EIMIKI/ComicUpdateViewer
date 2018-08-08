@@ -58,6 +58,10 @@ img{
     font-weight: bold;
 }
 
+.comic:hover{
+    opacity: 0.5;
+}
+
 .past_update{
     clear: both;
 }
