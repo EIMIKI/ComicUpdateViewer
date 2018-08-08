@@ -6,6 +6,8 @@ import (
 	"ComicUpdateViewer/getPages"
 	"time"
 
+	"ComicUpdateViewer/view"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -41,7 +43,7 @@ func main() {
 
 	r.GET("/api/getToday", api.GetToday)
 	r.GET("api/getPast", api.GetPast)
-	r.GET("/")
+	r.GET("/", view.ComicList)
 
 	go check()
 

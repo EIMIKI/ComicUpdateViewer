@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CUV</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="page_title">
+        <h1>Comic Update Viewer</h1>
+    </div>
+    <div class="updates">
+        <div class="today_update">
+            <h2>今日の更新</h2>
+            <div class="comics">
+            {{ range .Today }}
+                <div class="comic">
+                    <a href="{{ .Url }}">
+                        <img src="{{ .Img }}">
+                        <p>{{ .Title }}</p>
+                    </a>
+                </div>
+            {{ end }}
+            </div>
+        </div>
+        <div class="past_update">
+            <h2>過去の更新</h2>
+            <div class="comics">
+            {{ range .Past }}
+                <div class="comic">
+                    <a href="{{ .Url }}">
+                        <img src="{{ .Img }}">
+                        <p>{{ .Title }}</p>
+                    </a>
+                </div>
+            {{ end }}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
