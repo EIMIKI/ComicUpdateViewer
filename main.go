@@ -1,7 +1,6 @@
 package main
 
 import (
-	"ComicUpdateViewer/api"
 	"ComicUpdateViewer/db"
 	"ComicUpdateViewer/getPages"
 	"time"
@@ -41,8 +40,8 @@ func main() {
 	r.LoadHTMLGlob("templates/*.html")
 	r.Static("/assets", "./assets")
 
-	r.GET("/api/getToday", api.GetToday)
-	r.GET("api/getPast", api.GetPast)
+	//r.GET("/api/getToday", api.GetToday)
+	//r.GET("api/getPast", api.GetPast)
 	r.GET("/", view.ComicList)
 
 	go check()
