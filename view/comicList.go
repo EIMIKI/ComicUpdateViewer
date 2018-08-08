@@ -15,6 +15,7 @@ type ComicData struct {
 	Past  []db.Result
 }
 
+// すべての更新データを含めたHTMLを提供する
 func ComicList(c *gin.Context) {
 	date := db.GetDate()
 	data, err := db.GetPastUpdate("select comic_id,title,url,img from comics where date='" + date + "'")
