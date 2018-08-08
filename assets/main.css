@@ -30,7 +30,10 @@ img{
 }
 
 .updates{
+    width: 1515px;
     margin-top:120px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .updates h2{
