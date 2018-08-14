@@ -24,10 +24,15 @@ func getDbUserEnv() DbUser {
 
 }
 
+func getDbEnv() string {
+	return os.Getenv("DBNAME")
+}
+
 // DB接続の設定
 func Connect() (err error) {
+	dbName := getDbEnv()
 	dbUser := getDbUserEnv()
-	conn, err := sql.Open("mysql", dbUser.Name+":"+dbUser.Pass+"@/cuv")
+	conn, err := sql.Open("mysql", dbUser.Name+":"+dbUser.Pass+"@/"+dbName+"")
 	if err != nil {
 		return err
 	}
